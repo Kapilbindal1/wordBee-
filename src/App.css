@@ -1,0 +1,50 @@
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.wordLineContainer {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.alphabetBox {
+  height: 50px;
+  width: 50px;
+  border: 2px solid black;
+  margin-right: 10px;
+  font-size: 34px;
+  text-transform: capitalize;
+  padding-left: 10px;
+}
+
+.Keyboard {
+  width: 35%;
+  margin-top: 15px;
+}
+
+.button {
+  font-size: 30px;
+  padding: 7px;
+  margin: 10px;
+  min-width: 50px;
+}
+
+.actionButton {
+  display: flex;
+  justify-content: space-between;
+}
+
+.green {
+  background: green;
+}
+
+.yellow {
+  background: yellow;
+}
+
+.grey {
+  background: grey;
+}
