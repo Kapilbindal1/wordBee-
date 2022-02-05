@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
   const [state, setState] = useState(initialState);
 
-  const [selectedWord, setSelectedWord] = useState(["p", "l", "e", "a", "d"]);
+  const [selectedWord, setSelectedWord] = useState(randomWord);
 
   const handleKeyboardClick = (alphabet, isAlphabet) => {
     let newState = { ...state };
@@ -60,7 +60,7 @@ function App() {
     }
   };
 
-  console.log("dictionaryWords", selectedWord, state);
+  console.log("dictionaryWords", selectedWord);
   return (
     <div className="App">
       <h1>WordBee!</h1>

@@ -1,30 +1,47 @@
 import React from "react";
 
 function WordLine({ word, selectedWord, isConfirmed }) {
-  const colorPresent = (alphabet, index) => {
+  const colorArray = () => {
+    let colorArr = ["", "", "", "", ""];
+    let tempSelectedArray = [...selectedWord];
+    let tempWordArray = [...word];
     if (isConfirmed) {
-      if (selectedWord[index] === alphabet) return "green";
-      else if (!selectedWord.includes(alphabet)) return "grey";
-      else {
-        if (index > 0) {
-          let occuranceInSelected = selectedWord.filter(
-            (item) => item === alphabet
+      word.forEach((item, index) => {
+        if (item === selectedWord[index]) {
+          colorArr[index] = "green";
+          tempSelectedArray.splice(index, 1, "");
+          tempWordArray.splice(index, 1, "");
+        } else if (!selectedWord.includes(item)) {
+          colorArr[index] = "grey";
+        }
+      });
+      [...colorArr].forEach((item, index) => {
+        if (!item) {
+          let occuranceInTempWord = tempWordArray.filter(
+            (item) => item === word[index]
           ).length;
-          let occuranceInWord = word
-            .slice(0, index)
-            .filter((item) => item === alphabet).length;
-          if (occuranceInSelected > occuranceInWord) return "yellow";
-          else return "grey";
-        } else return "yellow";
-      }
-    } else return "";
+          let occuranceInTempSelectedWord = tempSelectedArray.filter(
+            (item) => item === word[index]
+          ).length;
+          if (occuranceInTempWord <= occuranceInTempSelectedWord)
+            colorArr[index] = "yellow";
+          else {
+            let length = word
+              .slice(0, index)
+              .filter((item) => item === word[index]).length;
+            colorArr[index] =
+              length < occuranceInTempSelectedWord ? "yellow" : "grey";
+          }
+        }
+      });
+    }
+    return colorArr;
   };
+
   return (
     <div className="wordLineContainer">
       {word.map((alphabet, index) => (
-        <div className={`alphabetBox ${colorPresent(alphabet, index)}`}>
-          {alphabet}
-        </div>
+        <div className={`alphabetBox ${colorArray()[index]}`}>{alphabet}</div>
       ))}
     </div>
   );
