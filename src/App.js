@@ -1,12 +1,19 @@
 import { useState } from "react";
 import WordLine from "./components/wordLine";
-import { dictionaryWords, keyBoard, initialState, randomWord } from "./utils";
+import {
+  dictionaryWords,
+  keyBoard,
+  initialState,
+  randomWord,
+  initialColorState,
+} from "./utils";
 import "./App.css";
 
 function App() {
   const [state, setState] = useState(initialState);
-
+  const [correctWordGuessed, setCorrectWordGuessed] = useState(false);
   const [selectedWord, setSelectedWord] = useState(randomWord);
+  const [buttonColor, setButtonColor] = useState(initialColorState);
 
   const handleKeyboardClick = (alphabet, isAlphabet) => {
     let newState = { ...state };
@@ -60,7 +67,12 @@ function App() {
     }
   };
 
-  console.log("dictionaryWords", selectedWord);
+  const refreshHandler = () => {
+    setState(initialState);
+    setCorrectWordGuessed(false);
+    setSelectedWord(randomWord());
+  };
+
   return (
     <div className="App">
       <h1>WordBee!</h1>
@@ -70,26 +82,46 @@ function App() {
             word={state[line].word}
             isConfirmed={state[line].isConfirmed}
             selectedWord={selectedWord}
+            setCorrectWordGuessed={setCorrectWordGuessed}
+            setButtonColor={setButtonColor}
+            buttonColor={buttonColor}
           />
         ))}
       </div>
+      {correctWordGuessed && (
+        <div className="congratulation">
+          Congratulation! You have guessed the correct word.
+          <br />
+          <u>
+            <span>{selectedWord.join("")}</span>
+          </u>
+          <br />
+          <button onClick={refreshHandler}>Refresh</button>
+        </div>
+      )}
       <div className="Keyboard">
         <div className="wordButton">
           {keyBoard.map((item) => (
             <button
-              className="button"
+              className={`button ${buttonColor[item]}`}
               onClick={() => handleKeyboardClick(item, true)}
+              disabled={correctWordGuessed}
             >
               {item}
             </button>
           ))}
         </div>
         <div className="actionButton">
-          <button className="button" onClick={handleEnterClick}>
+          <button
+            className="button"
+            onClick={handleEnterClick}
+            disabled={correctWordGuessed}
+          >
             Enter
           </button>
           <button
             className="button"
+            disabled={correctWordGuessed}
             onClick={() => handleKeyboardClick("", false)}
           >
             BackSpace

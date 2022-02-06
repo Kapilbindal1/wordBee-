@@ -62,4 +62,51 @@ const randomWord = () => {
   let index = Math.floor(Math.random() * dictionaryWords.length);
   return dictionaryWords[index].split("");
 };
-export { dictionaryWords, keyBoard, initialState, randomWord };
+
+const initialColorState = {
+  q: "",
+  w: "",
+  e: "",
+  r: "",
+  t: "",
+  y: "",
+  u: "",
+  i: "",
+  o: "",
+  p: "",
+  a: "",
+  s: "",
+  d: "",
+  f: "",
+  g: "",
+  h: "",
+  j: "",
+  k: "",
+  l: "",
+  z: "",
+  x: "",
+  c: "",
+  v: "",
+  b: "",
+  n: "",
+  m: "",
+};
+
+const suggestColor = (prevColor, newColor) => {
+  if (
+    prevColor === "" ||
+    prevColor === "grey" ||
+    (prevColor === "yellow" && newColor === "green")
+  )
+    return newColor;
+  else return prevColor;
+};
+
+export {
+  dictionaryWords,
+  keyBoard,
+  initialState,
+  initialColorState,
+  randomWord,
+  suggestColor,
+};

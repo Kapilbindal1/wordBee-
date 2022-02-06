@@ -48,3 +48,14 @@
 .grey {
   background: grey;
 }
+
+.congratulation {
+  margin: 10px;
+  color: red;
+  font-size: 25px;
+  text-align: center;
+}
+
+.congratulation span {
+  text-transform: capitalize;
+}
